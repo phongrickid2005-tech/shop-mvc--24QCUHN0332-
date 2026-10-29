@@ -1,0 +1,12 @@
+body {
+background-color: #f8f9fa;
+}
+.card-img-top {
+width: 100%;
+aspect-ratio: 1 / 1;
+object-fit: cover;
+background-color: #f1f1f1;
+}
+.navbar-brand {
+letter-spacing: 0.5px;
+}

@@ -1,0 +1,16 @@
+# .gitignore
+# He dieu hanh / IDE
+.DS_Store
+Thumbs.db
+
+.vscode/*
+!.vscode/extensions.json
+# Log
+*.log
+# Anh san pham sinh tu seed/upload - khong can dua len GitHub,
+# chi giu cau truc thu muc bang .gitkeep
+/public/uploads/products/*
+!/public/uploads/products/.gitkeep
+!/public/uploads/products/thumbs/
+/public/uploads/products/thumbs/*
+!/public/uploads/products/thumbs/.gitkeep
