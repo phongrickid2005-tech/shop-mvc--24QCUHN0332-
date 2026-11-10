@@ -30,12 +30,61 @@ toggle="collapse" data-bs-target="#mainMenu">
 ?>">Trang chủ</a>
 </li>
 </ul>
+<ul class="navbar-nav">
+<?php if (Auth::check()): ?>
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href="#"
+role="button" data-bs-toggle="dropdown">
+<?= e(Auth::user()['full_name']) ?>
+</a>
+
+<ul class="dropdown-menu dropdown-menu-end">
+<?php if (in_array(Auth::role(), ['admin',
+'staff'], true)): ?>
+<li><a class="dropdown-item" href="<?=
+e(base_url('admin/dashboard')) ?>">Trang quản trị</a></li>
+<li><hr class="dropdown-divider"></li>
+<?php endif; ?>
+
+<li><a class="dropdown-item" href="<?=
+e(base_url('account/profile')) ?>">Hồ sơ cá nhân</a></li>
+<li><a class="dropdown-item" href="<?=
+e(base_url('auth/logout')) ?>">Đăng xuất</a></li>
+</ul>
+</li>
+<?php else: ?>
+<li class="nav-item"><a class="nav-link" href="<?=
+e(base_url('auth/login')) ?>">Đăng nhập</a></li>
+<li class="nav-item"><a class="nav-link" href="<?=
+e(base_url('auth/register')) ?>">Đăng ký</a></li>
+<?php endif; ?>
+</ul>
 </div>
 </div>
 </nav>
 </header>
 <main class="py-4 flex-grow-1">
 <div class="container">
+<?php if ($f = flash('success')): ?>
+<div class="alert alert-success alert-dismissible fade show"
+role="alert">
+<?= $f['message'] ?>
+
+<button type="button" class="btn-close" data-bs-
+dismiss="alert"></button>
+
+</div>
+<?php endif; ?>
+<?php if ($f = flash('error')): ?>
+<div class="alert alert-danger alert-dismissible fade show"
+role="alert">
+<?= $f['message'] ?>
+
+<button type="button" class="btn-close" data-bs-
+dismiss="alert"></button>
+
+</div>
+<?php endif; ?>
 <?php $content(); ?>
 </div>
 </main>
@@ -48,6 +97,5 @@ thương mại điện tử
 <script
 src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.
 js"></script>
-
 </body>
 </html>

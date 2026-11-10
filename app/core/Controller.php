@@ -6,12 +6,9 @@ abstract class Controller
 /**
 * Render mot view, long vao trong 1 layout dung chung.
 *
-* @param string $view duong dan view tinh tu app/views, vi du
-'home/index'
-* @param array $data du lieu truyen cho view (duoc extract thanh
-bien)
-* @param string|false $layout ten layout trong app/views/layouts, hoac
-false de khong dung layout
+* @param string $view duong dan view tinh tu app/views, vi du 'home/index'
+* @param array $data du lieu truyen cho view (duoc extract thanh bien)
+* @param string|false $layout ten layout trong app/views/layouts, hoac false de khong dung layout
 */
 protected function view(string $view, array $data = [], string|false
 $layout = 'main'): void
@@ -30,8 +27,7 @@ $layoutFile = __DIR__ . '/../views/layouts/' . $layout . '.php';
 if (!file_exists($layoutFile)) {
 die('Khong tim thay layout: ' . e($layout));
 }
-// $content la mot closure de layout tu quyet dinh noi chen noi
-dung view
+// $content la mot closure de layout tu quyet dinh noi chen noi dung view
 $content = function () use ($viewFile, $data) {
 extract($data);
 require $viewFile;

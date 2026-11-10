@@ -1,7 +1,6 @@
 <?php
 // app/core/Database.php
-// Ket noi CSDL bang PDO, chi tao MOT ket noi duy nhat dung chung
-(singleton)
+// Ket noi CSDL bang PDO, chi tao MOT ket noi duy nhat dung chung (singleton)
 class Database
 {
 private static ?PDO $instance = null;
@@ -21,8 +20,7 @@ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 PDO::ATTR_EMULATE_PREPARES => false,
 ]);
 } catch (PDOException $e) {
-// KHONG duoc in ten may chu / tai khoan / mat khau ra man
-hinh
+// KHONG duoc in ten may chu / tai khoan / mat khau ra man hinh
 error_log('Loi ket noi CSDL: ' . $e->getMessage());
 http_response_code(500);
 die('Xin loi, he thong dang gap su co. Vui long thu lai

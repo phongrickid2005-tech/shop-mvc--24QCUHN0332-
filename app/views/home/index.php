@@ -21,4 +21,3 @@ alt="<?= e($p['name']) ?>">
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
-?>
