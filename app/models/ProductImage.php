@@ -132,7 +132,7 @@ product_id = :pid'
 )->execute(['alt' => $altText, 'id' => $imageId, 'pid' =>
 $productId]);
 }
-/** Doi cho thu tu voi anh lien ke (khong tinh anh dai dien - anh daidien luon dung dau) */
+/** Doi cho thu tu voi anh lien ke (khong tinh anh dai dien - anh dai dien luon dung dau) */
 public static function swapOrder(int $imageId, int $productId, string
 $direction): void
 {

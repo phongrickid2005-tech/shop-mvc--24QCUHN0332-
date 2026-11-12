@@ -1,8 +1,8 @@
 RewriteEngine On
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-<FilesMatch "\.(php|phtml|php\d)$">
-Require all denied
-</FilesMatch>
+
 Options -Indexes

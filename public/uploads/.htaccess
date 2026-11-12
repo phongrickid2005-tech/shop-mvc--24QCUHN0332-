@@ -1,0 +1,7 @@
+# public/uploads/.htaccess
+# Khong cho thuc thi bat ky file PHP nao trong thu muc upload
+# va khong cho liet ke noi dung thu muc
+<FilesMatch "\.(php|phtml|php\d)$">
+Require all denied
+</FilesMatch>
+Options -Indexes
