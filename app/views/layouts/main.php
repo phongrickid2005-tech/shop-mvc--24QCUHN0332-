@@ -1,10 +1,10 @@
+<?php $navCategories = Category::activeList(); ?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= isset($pageTitle) ? e($pageTitle) . ' - ' : '' ?>Shop
-Online</title>
+<title><?= isset($pageTitle) ? e($pageTitle) . ' - ' : '' ?>Shop Online</title>
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css"
 rel="stylesheet">
@@ -16,7 +16,7 @@ rel="stylesheet">
 <div class="container">
 <a class="navbar-brand fw-bold" href="<?= e(base_url('')) ?>">
 Shop<span class="text-primary">Online</span>
-</a>
+</a> 
 
 <button class="navbar-toggler" type="button" data-bs-
 toggle="collapse" data-bs-target="#mainMenu">
@@ -28,6 +28,32 @@ toggle="collapse" data-bs-target="#mainMenu">
 <li class="nav-item">
 <a class="nav-link" href="<?= e(base_url(''))
 ?>">Trang chủ</a>
+</li>
+
+<li class="nav-item dropdown">
+
+<a class="nav-link dropdown-toggle" href="#"
+role="button" data-bs-toggle="dropdown">
+Danh mục
+</a>
+
+<ul class="dropdown-menu">
+
+<?php foreach ($navCategories as $nc): ?>
+<li>
+<a class="dropdown-item" href="<?=
+e(base_url('category/show/' . $nc['slug'])) ?>">
+<?= e($nc['name']) ?>
+</a>
+</li>
+<?php endforeach; ?>
+</ul>
+</li>
+
+<li class="nav-item">
+
+<a class="nav-link" href="<?=
+e(base_url('contact')) ?>">Liên hệ</a>
 </li>
 </ul>
 <ul class="navbar-nav">
@@ -84,12 +110,22 @@ role="alert">
 dismiss="alert"></button>
 
 </div>
+
 <?php endif; ?>
 <?php $content(); ?>
 </div>
 </main>
 <footer class="bg-dark text-light py-4 mt-5">
 <div class="container text-center small">
+<p class="mb-2">
+
+<a href="<?= e(base_url('policy')) ?>" class="text-light text-
+decoration-none me-3">Chính sách mua hàng &amp; đổi trả</a>
+
+<a href="<?= e(base_url('contact')) ?>" class="text-light text-
+decoration-none">Liên hệ</a>
+
+</p>
 &copy; <?= date('Y') ?> ShopOnline &mdash; Đồ án thực hành Website
 thương mại điện tử
 </div>

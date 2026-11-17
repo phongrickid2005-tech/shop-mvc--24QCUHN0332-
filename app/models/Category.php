@@ -19,9 +19,18 @@ category_id = :id');
 $stmt->execute(['id' => $categoryId]);
 return (int) $stmt->fetchColumn();
 }
+/** Danh sach danh muc dang hien thi, dung cho menu va trang chu */
+public static function activeList(): array
+{
+return static::db()
+->query("SELECT * FROM categories WHERE status = 'active' ORDER
+BY name ASC")
+->fetchAll();
+}
 /** Tao slug khong dau, chu thuong, cach nhau bang dau gach ngang */
 public static function slugify(string $name): string
 {
+
 $slug = mb_strtolower(trim($name), 'UTF-8');
 $map = [
 'à'=>'a','á'=>'a','ạ'=>'a','ả'=>'a','ã'=>'a','â'=>'a','ầ'=>'a','ấ'=>'a','ậ'
