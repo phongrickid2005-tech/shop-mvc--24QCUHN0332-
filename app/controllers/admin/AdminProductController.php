@@ -74,9 +74,7 @@ flash('error', implode('<br>', array_map('e', $errors)));
 $this->redirect('admin/product/edit/' . $id);
 return;
 }
-// Chi cap nhat thong tin san pham - KHONG dong den anh (anh quan
-
-ly rieng,
+// Chi cap nhat thong tin san pham - KHONG dong den anh (anh quanly rieng,
 // xem AdminProductImageController) => sua thong tin KHONG lam mat
 anh.
 Product::update($id, $data);
@@ -93,8 +91,7 @@ Product::delete($id);
 flash('success', 'Đã xoá sản phẩm và toàn bộ ảnh liên quan.');
 $this->redirect('admin/product');
 }
-/** @return array{0: array, 1: string[]} [du_lieu_de_luu,
-danh_sach_loi] */
+/** @return array{0: array, 1: string[]} [du_lieu_de_luu,danh_sach_loi] */
 protected function validateProduct(array $input, ?int $excludeId):
 array
 {

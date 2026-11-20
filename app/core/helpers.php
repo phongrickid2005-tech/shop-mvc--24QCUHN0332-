@@ -131,5 +131,45 @@ alt="{$name}">
 </div>
 </a>
 </div>
-HTML;
+HTML;}
+function query_url(array $override = []): string
+{
+$params = array_merge($_GET, $override);
+$params = array_filter($params, function ($v) {
+return $v !== '' && $v !== null && $v !== [];
+});
+$query = http_build_query($params);
+return base_url('product/search') . ($query !== '' ? '?' . $query :
+'');
+}
+/**
+* Tra ve HTML thanh phan trang Bootstrap. $page: trang hien tai (tu 1),
+* $totalPages: tong so trang. Tra ve chuoi rong neu chi co 1 trang.
+*/
+function pagination_html(int $page, int $totalPages): string
+{
+if ($totalPages <= 1) {
+return '';
+}
+
+$html = '<nav aria-label="Phân trang"><ul class="pagination justify-
+content-center">';
+
+$prevDisabled = $page <= 1 ? ' disabled' : '';
+$prevUrl = e(query_url(['page' => max(1, $page - 1)]));
+$html .= "<li class=\"page-item{$prevDisabled}\"><a class=\"page-link\"
+
+href=\"{$prevUrl}\">&laquo; Trước</a></li>";
+for ($i = 1; $i <= $totalPages; $i++) {
+$active = $i === $page ? ' active' : '';
+$url = e(query_url(['page' => $i]));
+$html .= "<li class=\"page-item{$active}\"><a class=\"page-link\"
+href=\"{$url}\">{$i}</a></li>";
+}
+$nextDisabled = $page >= $totalPages ? ' disabled' : '';
+$nextUrl = e(query_url(['page' => min($totalPages, $page + 1)]));
+$html .= "<li class=\"page-item{$nextDisabled}\"><a class=\"page-link\"
+href=\"{$nextUrl}\">Sau &raquo;</a></li>";
+$html .= '</ul></nav>';
+return $html;
 }

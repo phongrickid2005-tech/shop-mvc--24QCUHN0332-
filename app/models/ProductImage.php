@@ -88,8 +88,7 @@ return;
 }
 $db->beginTransaction();
 try {
-$db->prepare('DELETE FROM product_images WHERE id = :id')-
->execute(['id' => $imageId]);
+$db->prepare('DELETE FROM product_images WHERE id = :id')->execute(['id' => $imageId]);
 if ((int) $image['is_primary'] === 1) {
 $nextId = $db->prepare(
 'SELECT id FROM product_images WHERE product_id = :pid

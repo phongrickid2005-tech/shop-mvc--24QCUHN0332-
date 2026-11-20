@@ -127,3 +127,10 @@ INSERT INTO users (full_name, email, password, role, status) VALUES
 ('Quản trị viên', 'admin@shop.local',
 '$2y$10$3bcAYXYYxv7TuWI9KH3zOOSDGTT8Q7P/ptvLmboC/WyXdJRWkVYku', 'admin','active'),
 ('Nhân viên bán hàng', 'staff@shop.local','$2y$10$Q2u2cILb1athiBr5Nz9njOJSvQwfjB333zsvP4omlakUD9rCTpBO2', 'staff','active');
+-- ===================== BUOI 5 =====================
+-- Them chi muc cho cac cot thuong dung trong WHERE / ORDER BY de tang toc do truy van.
+-- category_id da duoc danh chi muc tu dong vi la khoa ngoai, khong can them.
+ALTER TABLE products ADD INDEX idx_products_name (name);
+ALTER TABLE products ADD INDEX idx_products_brand (brand);
+ALTER TABLE products ADD INDEX idx_products_price (price);
+ALTER TABLE products ADD INDEX idx_products_sold_count (sold_count);
