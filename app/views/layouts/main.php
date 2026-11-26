@@ -35,6 +35,7 @@ toggle="collapse" data-bs-target="#mainMenu">
 
 <a class="nav-link dropdown-toggle" href="#"
 role="button" data-bs-toggle="dropdown">
+
 Danh mục
 </a>
 
@@ -46,7 +47,6 @@ Danh mục
 e(base_url('category/show/' . $nc['slug'])) ?>">
 <?= e($nc['name']) ?>
 </a>
-
 </li>
 <?php endforeach; ?>
 </ul>
@@ -70,7 +70,16 @@ value="<?= e($_GET['q'] ?? '') ?>">
 <button class="btn btn-sm btn-outline-primary"
 type="submit">Tìm</button>
 </form>
-<ul class="navbar-nav">
+<ul class="navbar-nav align-items-lg-center">
+<li class="nav-item">
+<a class="nav-link" href="<?=
+e(base_url('cart/index')) ?>">
+Giỏ hàng
+<span id="cartBadge" class="badge rounded-pill
+bg-danger"><?= Cart::totalQuantity() ?></span>
+</a>
+</li>
+
 <?php if (Auth::check()): ?>
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#"
@@ -104,7 +113,6 @@ e(base_url('auth/register')) ?>">Đăng ký</a></li>
 </div>
 </nav>
 </header>
-
 <main class="py-4 flex-grow-1">
 <div class="container">
 <?php if ($f = flash('success')): ?>
@@ -145,6 +153,7 @@ decoration-none">Liên hệ</a>
 thương mại điện tử
 </div>
 </footer>
+
 <script
 src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.
 js"></script>

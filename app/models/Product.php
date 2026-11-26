@@ -1,5 +1,6 @@
 <?php
 // app/models/Product.php
+
 class Product extends Model
 {
 protected static string $table = 'products';
@@ -16,7 +17,7 @@ $where = ["p.status = 'active'"];
 $params = [];
 $keyword = trim((string) ($filters['q'] ?? ''));
 if ($keyword !== '') {
-"Invalid parameter number".
+
 $where[] = '(p.name LIKE :kw1 OR p.sku LIKE :kw2 OR
 p.description LIKE :kw3)';
 $params['kw1'] = '%' . $keyword . '%';
@@ -44,6 +45,7 @@ if (($filters['price_from'] ?? '') !== '' &&
 is_numeric($filters['price_from'])) {
 $where[] = 'p.price >= :price_from';
 $params['price_from'] = (float) $filters['price_from'];
+
 }
 if (($filters['price_to'] ?? '') !== '' &&
 is_numeric($filters['price_to'])) {
@@ -51,15 +53,12 @@ $where[] = 'p.price <= :price_to';
 $params['price_to'] = (float) $filters['price_to'];
 }
 $whereSql = implode(' AND ', $where);
-// Chon cau ORDER BY tu WHITELIST, khong bao gio dung truc tiep
-$_GET['sort']
 $sortKey = (string) ($filters['sort'] ?? 'newest');
 $orderBy = self::SORT_OPTIONS[$sortKey] ??
 self::SORT_OPTIONS['newest'];
 $page = max(1, $page);
 $perPage = max(1, $perPage);
 $offset = ($page - 1) * $perPage;
-// --- Cau 1: dem tong so ket qua (de tinh tong so trang) ---
 $countSql = "SELECT COUNT(*) FROM products p WHERE {$whereSql}";
 $countStmt = static::db()->prepare($countSql);
 $countStmt->execute($params);
@@ -67,7 +66,6 @@ Database::$queryCount++;
 $total = (int) $countStmt->fetchColumn();
 $sql = "SELECT p.*, pi.file_name AS image
 FROM products p
-
 LEFT JOIN product_images pi
 ON pi.product_id = p.id AND pi.is_primary = 1
 WHERE {$whereSql}
@@ -94,10 +92,38 @@ return [
 public static function distinctBrands(): array
 {
 $sql = "SELECT DISTINCT brand FROM products
+
 WHERE status = 'active' AND brand IS NOT NULL AND brand !=
 ''
 ORDER BY brand ASC";
 return static::db()->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+}
+
+public static function findManyWithImage(array $ids): array
+{
+$ids = array_values(array_unique(array_map('intval', $ids)));
+if (empty($ids)) {
+return [];
+}
+$placeholders = [];
+$params = [];
+foreach ($ids as $i => $id) {
+$key = 'id' . $i;
+$placeholders[] = ':' . $key;
+$params[$key] = $id;
+}
+$sql = "SELECT p.*, pi.file_name AS image
+FROM products p
+LEFT JOIN product_images pi
+ON pi.product_id = p.id AND pi.is_primary = 1
+WHERE p.id IN (" . implode(',', $placeholders) . ')';
+$stmt = static::db()->prepare($sql);
+$stmt->execute($params);
+$result = [];
+foreach ($stmt->fetchAll() as $row) {
+$result[(int) $row['id']] = $row;
+}
+return $result;
 }
 /** Kiem tra SKU da ton tai chua, loai tru 1 id khi dang sua san pham
 */
@@ -109,6 +135,7 @@ $params = ['sku' => $sku];
 if ($excludeId !== null) {
 $sql .= ' AND id != :id';
 $params['id'] = $excludeId;
+
 }
 $stmt = static::db()->prepare($sql);
 $stmt->execute($params);
